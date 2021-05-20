@@ -1,0 +1,11 @@
+*.txt
+*.csv
+*.json
+*.xml
+*.png
+*.jpg
+*.jsonp
+*.sdf
+*.asnb
+*.asnt
+out_data
