@@ -20,7 +20,7 @@ All other packages used are built into Python 3.X
 
 The input file should be structure with one SMILES string per line and no additional information. See the example format below:
 
-```
+```txt
 smiles1
 smiles2
 smiles3

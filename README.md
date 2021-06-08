@@ -6,13 +6,11 @@ Welcome to the Chopra Lab utilities repository. This repo contains information o
 
 ## List of Utilities
 
-### `Auto_Mine_PubChem_PDB`
+### `Auto_Mine_PubChem` - Automated Mining of PubChem Database using RESTful API (PUG REST)
 
-See README.md in the folder for more information ...
+### `Auto_Psi4_Energy_Cal` - Automated Quantum Mechanical (QM) Calculations Using Psi4
 
-### `Auto_Psi4_Energy_Cal`
-
-See README.md in the folder for more information ...
+### `Auto_Mine_Uniprot` - Automated Mining of FASTA Information from the UniProt Database
 
 ## Submission Instructions
 
