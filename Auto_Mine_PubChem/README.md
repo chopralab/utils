@@ -221,7 +221,7 @@ You can import and using the module and PubChem_Miner class in the following man
 
 ```python
 import sys
-sys.path.insert(0, '../')
+sys.path.insert(0, path_to_module)
 from auto_mine_pubchem import PubChem_Miner
 
 print(PubChem_Miner.get_compound_info(input_type, input_value, data_type, data_value, output_type))
