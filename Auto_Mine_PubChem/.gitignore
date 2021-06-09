@@ -8,4 +8,6 @@
 *.sdf
 *.asnb
 *.asnt
+*.pyc
 out_data
+test

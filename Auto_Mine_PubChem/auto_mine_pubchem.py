@@ -85,6 +85,76 @@ parser.add_argument('--include-label', action='store_true', default=False, help=
 # Parser the arguments
 args = parser.parse_args()
 
+class PubChem_Miner():
+
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def get_compound_info(input_type,input,data_type,data,output_type='TXT'):
+        url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/"
+        domain = "compound/"
+
+        if input_type is 'smiles':
+            input = 'smiles/' + input + '/'
+        elif input_type is 'inchikey':
+            input = 'inchikey/' + input + '/'
+        elif input_type is 'name':
+            input = 'name/' + input + '/'
+        else:
+            print("Input type not supported")
+            return None
+
+        if data_type is 'property':
+            if isinstance(data, list):
+                dcopy = 'property/'
+                for elem in data:
+                    if elem is 'smiles':
+                        dcopy += 'canonicalSMILES' + ','
+                    else:
+                        dcopy += elem + ','
+                dcopy = dcopy[:-1]
+                data = dcopy + '/'
+            else:
+                if data is 'smiles':
+                    data = 'property/' + 'canonicalSMILES' + '/'
+                else:
+                    data = 'property/' + data + '/'
+        elif data_type is 'synonyms':
+            data = 'synonyms' + '/'
+        elif data_type is 'assay':
+            if output_type not in ['XML','CSV','JSON']:
+                print("Invalid output type for this query")
+                return None
+            else:
+                data = 'assaysummary/' 
+        else:
+            print("Data type not supported")
+            return None
+
+        if output_type not in ['TXT','XML','CSV','JSON']:
+            print('Output type not supported')
+            return None
+
+        url = url + domain + input + data + output_type
+        response = requests.get(url)
+        if response:
+            print("Request on " + url + " succeded!")
+            if output_type is 'TXT':
+                return response.text
+            if output_type is 'CSV':
+                return pd.read_csv(StringIO(response.text))
+            if output_type is 'XML':
+                return ET.ElementTree(ET.fromstring(StringIO(response.text)))
+            if output_type is 'JSON':
+                return json.loads(StringIO(response.text))
+        else:
+            try:
+                raise StatusCodeError(response.status_code)
+            except StatusCodeError:
+                print("Request on " + url + " failed")
+                return None
+
 # Check to see if all argument values are satisfied
 def check_args():
     num_warnings = 0

@@ -213,6 +213,22 @@ Used in conjuection with JSONP outtype. You can read more about JSONP articles [
 
 ## Output File Format
 
-The output file format varies based on the specific output file type and data selected. Please see the **Examples** section below for example output file formats.
+The output file format varies based on the specific output file type and data selected.
 
-## Examples
+## Module Usage
+
+You can import and using the module and PubChem_Miner class in the following manner:
+
+```python
+import sys
+sys.path.insert(0, '../')
+from auto_mine_pubchem import PubChem_Miner
+
+print(PubChem_Miner.get_compound_info(input_type, input_value, data_type, data_value, output_type))
+```
+
+All methods are static method of the PubChem_Miner class.
+
+## Testing
+
+Tested on Python 3.7.1
