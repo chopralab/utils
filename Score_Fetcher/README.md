@@ -29,20 +29,20 @@ to obtain one of the following metrics:
 
 Example usage:
 ```python
-    from getscores import SCScorer
-    
-    model = ScoreFetcher()
-    # List of SMILES strings
-    smis = ['CC1=C(COC2=CC(OC)=C(CN3CCCC[C@H]3C(O)=O)C(OC)=C2)C=CC=C1C4=CC=CC=C4',
-            'COC1=CC(OCC2=CC=CC(=C2C)C2=CC=C3OCCOC3=C2)=CC(OC)=C1CN[C@H](CO)C(O)=O',
-            'COC1=CC(OCC2=CC=CC(=C2C)C2=CC=CC=C2)=CC(OC)=C1CN[C@H](CC(F)(F)F)C1=CC=CC=C1',
-            'O=C1CCC2C(C[C@@H](C)[C@]3([H])[C@]2([H])CC[C@@]4(C)[C@@]3([H])CC[C@]4(C#C)O)=C1',
-            'COC1=CC(OCC2=C(C)C(=CC=C2)C2=CC=CC=C2)=CC(OC)=C1CN1CCC[C@@H](C1)C(O)=O',
-            'CN1CC[C@]23c4c5ccc(O)c4O[C@H]2[C@@H](O)C=C[C@H]3[C@H]1C5']
-    for smi in smis:
-        model.get_SCScore(smi)
-        model.get_SAScore(smi)
-        model.get_RAScore(smi)
+from getscores import SCScorer
+
+model = ScoreFetcher()
+# List of SMILES strings
+smis = ['CC1=C(COC2=CC(OC)=C(CN3CCCC[C@H]3C(O)=O)C(OC)=C2)C=CC=C1C4=CC=CC=C4',
+        'COC1=CC(OCC2=CC=CC(=C2C)C2=CC=C3OCCOC3=C2)=CC(OC)=C1CN[C@H](CO)C(O)=O',
+        'COC1=CC(OCC2=CC=CC(=C2C)C2=CC=CC=C2)=CC(OC)=C1CN[C@H](CC(F)(F)F)C1=CC=CC=C1',
+        'O=C1CCC2C(C[C@@H](C)[C@]3([H])[C@]2([H])CC[C@@]4(C)[C@@]3([H])CC[C@]4(C#C)O)=C1',
+        'COC1=CC(OCC2=C(C)C(=CC=C2)C2=CC=CC=C2)=CC(OC)=C1CN1CCC[C@@H](C1)C(O)=O',
+        'CN1CC[C@]23c4c5ccc(O)c4O[C@H]2[C@@H](O)C=C[C@H]3[C@H]1C5']
+for smi in smis:
+    model.get_SCScore(smi)
+    model.get_SAScore(smi)
+    model.get_RAScore(smi)
 ```
 
 ## Testing
