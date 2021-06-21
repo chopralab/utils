@@ -1,6 +1,6 @@
 # Score Fetcher Utility
 
-## `getscores.py`
+## Overview
 
 Fetches various metrics of synthetic complexity/feasibility. Defines
 a ScoreFetcher class which when constructed can be passed any SMILES string
@@ -16,9 +16,21 @@ to obtain one of the following metrics:
 - RAScore: Retrosynthetic Accessibility Score
     - A score between 0 and 1 learned from the CASP tool AiZynthfinder that predicts
     if a compound would have a synthetic route (1) or not (0).
+    
+## Required Packages / Scripts
+
+[`rdkit`](https://www.rdkit.org/docs/Install.html)
+
+[`scscore`](https://github.com/connorcoley/scscore)
+
+[`RAScore`](https://github.com/MolecularAI/RAscore)
+
+## Usage
 
 Example usage:
 ```python
+    from getscores import SCScorer
+    
     model = ScoreFetcher()
     # List of SMILES strings
     smis = ['CC1=C(COC2=CC(OC)=C(CN3CCCC[C@H]3C(O)=O)C(OC)=C2)C=CC=C1C4=CC=CC=C4',
@@ -32,3 +44,6 @@ Example usage:
         model.get_SAScore(smi)
         model.get_RAScore(smi)
 ```
+
+## Testing
+Tested on Python 3.7
