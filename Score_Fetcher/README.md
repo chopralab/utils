@@ -1,6 +1,8 @@
-## Score Fetcher Utility - getscores.py
+# Score Fetcher Utility
 
-A script that fetches various metrics of synthetic complexity/feasibility. Defines
+##`getscores.py`
+
+Fetches various metrics of synthetic complexity/feasibility. Defines
 a ScoreFetcher class which when constructed can be passed any SMILES string
 to obtain one of the following metrics:
 
