@@ -68,6 +68,21 @@ def gen_viz(edges):
     
     return img_map, graph
 
+class TreeVisualizer():
+
+    def __init__(self):
+        pass
+
+    def tree_to_file(self, tree, path):
+        tree = clean_tree(tree)
+        edges = get_edges(tree)
+        img_map, graph = gen_viz(edges)
+        graph.render(path)
+        for key,val in img_map.items():
+            os.remove(val)
+        return graph
+
+
 if __name__ == '__main__':
     tree = {
             "is_chemical": True,
@@ -145,9 +160,6 @@ if __name__ == '__main__':
             "smiles": "CCN(CC)CCOC(C)(c1ccccc1)c1ccc(Cl)cc1",
             "ppg": 0.0
             }
-    tree = clean_tree(tree)
-    edges = get_edges(tree)
-    img_map, graph = gen_viz(edges)
-    graph.render('test')
-    for key,val in img_map.items():
-        os.remove(val)
+    
+    tv = TreeVisualizer()
+    graph = tv.tree_to_file(tree, 'test')
