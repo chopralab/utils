@@ -41,7 +41,7 @@ def get_edges(tree, parent=None):
     else:
         return edges
 
-def gen_viz(edges):
+def gen_viz(edges, splines='none'):
     '''
     Given a list of edges of a retrosynthetic tree, generates a graph visualization
     '''
@@ -52,10 +52,14 @@ def gen_viz(edges):
         unismi.add(edge[1])
     for i in unismi:
         mol = Chem.MolFromSmiles(i)
-        Draw.MolToFile(mol, i + '.png')
-        img_map[i] = i + '.png'
+        j = i.replace('/', '%2F')
+        Draw.MolToFile(mol, j + '.png')
+        img_map[i] = j + '.png'
 
-    graph = graphviz.Digraph(format='png', graph_attr={'splines': 'ortho'})
+    if splines == 'ortho':
+        graph = graphviz.Digraph(format='png', graph_attr={'splines': splines})
+    else:
+        graph = graphviz.Digraph(format='png')
     parents = []
     for edge in edges:
         graph.node(edge[0], label='', image=img_map[edge[0]], shape='rect', style='rounded')
@@ -76,8 +80,12 @@ class TreeVisualizer():
     def tree_to_file(self, tree, path):
         tree = clean_tree(tree)
         edges = get_edges(tree)
-        img_map, graph = gen_viz(edges)
-        graph.render(path)
+        try:
+            img_map, graph = gen_viz(edges, 'ortho')
+            graph.render(path)
+        except:
+            img_map, graph = gen_viz(edges)
+            graph.render(path)
         for key,val in img_map.items():
             os.remove(val)
         return graph
@@ -160,6 +168,6 @@ if __name__ == '__main__':
             "smiles": "CCN(CC)CCOC(C)(c1ccccc1)c1ccc(Cl)cc1",
             "ppg": 0.0
             }
-    
+   
     tv = TreeVisualizer()
     graph = tv.tree_to_file(tree, 'test')
