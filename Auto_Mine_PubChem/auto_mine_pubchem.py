@@ -8,6 +8,7 @@ import json
 import xml.etree.ElementTree as ET
 from io import StringIO
 from PIL import Image
+from rdkit import Chem
 
 # Exception for invalid command line arguments
 class ArgumentError(Exception):
@@ -155,6 +156,29 @@ class PubChem_Miner():
                 print("Request on " + url + " failed")
                 return None
 
+    def get_json_info(smiles):
+        mol = Chem.MolFromSmiles(smiles)
+        inchi_key = Chem.inchi.MolToInchiKey(mol)
+        url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/"+str(inchi_key)+"/cids/TXT"
+
+        response = requests.get(url)
+        if response:
+            cid = response.text.split("\n")
+            print("Request on " + smiles + " Succeded! - CID Accessed: " + cid)
+        else:
+            print("Request on " + smiles + " Failed! - No CID Accessed")
+            return None
+
+        json_url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/categories/compound/"+ str(cid) +"/JSON/?response_type=display"
+        response = requests.get(json_url)
+        if response:
+            print("Requeset on " + cid + " Succeded - JSON Accssed")
+            data = json.loads(response.text)
+            return data
+        else:
+            print("Request on " + cid + " Failed! - No JSON Accessed")
+            return None
+            
 # Check to see if all argument values are satisfied
 def check_args():
     num_warnings = 0
