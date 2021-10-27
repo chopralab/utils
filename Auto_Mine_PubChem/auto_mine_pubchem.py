@@ -157,13 +157,17 @@ class PubChem_Miner():
                 return None
 
     def get_json_info(smiles):
-        mol = Chem.MolFromSmiles(smiles)
-        inchi_key = Chem.inchi.MolToInchiKey(mol)
+        try:
+            mol = Chem.MolFromSmiles(smiles)
+            inchi_key = Chem.inchi.MolToInchiKey(mol)
+        except Exception as e:
+            print("RDKit failure on " + smiles)
+        
         url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/"+str(inchi_key)+"/cids/TXT"
 
         response = requests.get(url)
         if response:
-            cid = response.text.split("\n")
+            cid = response.text.split("\n")[0]
             print("Request on " + smiles + " Succeded! - CID Accessed: " + cid)
         else:
             print("Request on " + smiles + " Failed! - No CID Accessed")
