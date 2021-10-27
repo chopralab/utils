@@ -10,4 +10,4 @@
 *.asnt
 *.pyc
 out_data
-test
+test/*
